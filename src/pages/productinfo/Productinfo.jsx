@@ -3,6 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -49,7 +50,9 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">Edit</div>
+            <Link to={`/editproduct/${id}`}>
+              <div className="editButton" >Edit</div>
+            </Link>
             <h1 className="title">Information</h1>
             <div className="item">
               <img

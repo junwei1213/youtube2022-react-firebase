@@ -1,8 +1,9 @@
-import "./new.scss";
+import "./editproduct.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   addDoc,
   collection,
@@ -10,6 +11,8 @@ import {
   serverTimestamp,
   setDoc,
   Timestamp,
+  where,
+  onSnapshot,
   updateDoc
 } from "firebase/firestore";
 import { auth, db, storage } from "../../firebase";
@@ -20,10 +23,29 @@ import { useNavigate } from "react-router-dom";
 const New = ({ inputs, title }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
+  const [pdata, getData] = useState({});
   const [per, setPerc] = useState(null);
   const navigate = useNavigate()
 
+  var url = window.location.pathname;
+  var id = url.substring(url.lastIndexOf('/') + 1);
+
   useEffect(() => {
+    const unsub = onSnapshot(
+      collection(db, "products"), where("uid", "==", id),
+      (snapShot) => {
+        let products = [];
+        snapShot.docs.forEach((doc) => {
+          products = doc.data();
+          console.log(products);
+        });
+        getData(products);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
     const uploadFile = () => {
       const name = new Date().getTime() + file.name;
 
@@ -59,7 +81,7 @@ const New = ({ inputs, title }) => {
         }
       );
     };
-    file && uploadFile();
+    file && uploadFile() && unsub();
   }, [file]);
 
   console.log(data);
@@ -75,15 +97,10 @@ const New = ({ inputs, title }) => {
     e.preventDefault();
     try {
       // Add a new document with a generated id
-const newProductRef = doc(collection(db, "products"));
-
+const newProductRef = doc(db, "products",id);
 // later...
-await setDoc(newProductRef, data )
-      navigate(-1)
-
-      const updateTimestamp = await updateDoc(newProductRef, {
-    timeStamp: serverTimestamp()
-});
+await updateDoc(newProductRef, data )
+navigate(`/products/${id}`)
     } catch (err) {
       console.log(err);
     }
@@ -103,7 +120,7 @@ await setDoc(newProductRef, data )
               src={
                 file
                   ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                  : pdata.img
               }
               alt=""
             />
@@ -122,20 +139,62 @@ await setDoc(newProductRef, data )
                 />
               </div>
 
-              {inputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
+                <div className="formInput" key={"title"}>
+                  <label>Title:</label>
                   <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
+                    id={"title"}
+                    type="text"
+                    placeholder= {pdata.title}
                     onChange={handleInput}
                   />
                 </div>
-              ))}
+                <div className="formInput" key={"description"}>
+                  <label>Description</label>
+                  <input
+                    id={"description"}
+                    type="text"
+                    placeholder= {pdata.description}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="formInput" key={"category"}>
+                  <label>Category</label>
+                  <input
+                    id={"category"}
+                    type="text"
+                    placeholder= {pdata.category}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="formInput" key="price">
+                  <label>Price</label>
+                  <input
+                    id="price"
+                    type="text"
+                    placeholder= {pdata.price}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="formInput" key="quantity">
+                  <label>Quantity</label>
+                  <input
+                    id={"quantity"}
+                    type="text"
+                    placeholder= {pdata.quantity}
+                    onChange={handleInput}
+                  />
+                </div>
+                <div className="formInput" key="stock">
+                  <label>Stock</label>
+                  <select id={"stock"} value={pdata.stock} onChange={handleInput}>
+                  <option value="In Stock">In Stock</option>
+                  <option value="No Stock">No Stock</option>
+                  </select>
+                </div>
               <button disabled={per !== null && per < 100} type="submit">
                 Send
               </button>
+              
             </form>
           </div>
         </div>

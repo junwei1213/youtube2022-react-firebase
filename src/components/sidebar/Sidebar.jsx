@@ -14,10 +14,29 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext"
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
+  const [error, setError] = useState(false);
+  const navitage = useNavigate()
+  const {dispatch} = useContext(AuthContext)
+
+    const Logout = async (e) => {
+      e.preventDefault();
+      const auth = getAuth();
+      await signOut(auth).then(() => {
+        console.log("Successfully signed out.")
+        dispatch({type:"LOGOUT",})
+        navitage("/")
+      }).catch(function(error) {
+        console.log(error)
+        console.log("An error occurred")
+      });
+    }
+
   return (
     <div className="sidebar">
       <div className="top">
@@ -92,7 +111,7 @@ const Sidebar = () => {
           </li>
           <li>
             <ExitToAppIcon className="icon" />
-            <span>Logout</span>
+            <span onClick={Logout}>Logout</span>
           </li>
         </ul>
       </div>

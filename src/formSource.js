@@ -1,4 +1,82 @@
-import { serverTimestamp } from "firebase/firestore";
+  export const productOutputs = [
+{
+  id: "title",
+  label: "Title",
+  type: "text",
+  placeholder: "title",
+},
+{
+  id: "description",
+  label: "Description",
+  type: "text",
+  placeholder: "Description",
+},
+{
+  id: "category",
+  label: "Category",
+  type: "text",
+  placeholder: "Computers",
+},
+{
+  id: "price",
+  label: "Price",
+  type: "text",
+  placeholder: "100",
+},
+{
+  id: "quantity",
+  label: "Quantity",
+  type: "text",
+  placeholder: "100",
+},
+{
+  id: "stock",
+  label: "Stock",
+  type: "text",
+  placeholder: "in stock",
+},
+];
+
+    export const productInputs = [
+  {
+    id: "title",
+    label: "Title",
+    type: "text",
+    placeholder: "Apple Macbook Pro",
+  },
+  {
+    id: "description",
+    label: "Description",
+    type: "text",
+    placeholder: "Description",
+  },
+  {
+    id: "category",
+    label: "Category",
+    type: "text",
+    placeholder: "Computers",
+  },
+  {
+    id: "price",
+    label: "Price",
+    type: "text",
+    placeholder: "100",
+  },
+  {
+    id: "quantity",
+    label: "Quantity",
+    type: "text",
+    placeholder: "100",
+  },
+  {
+    id: "stock",
+    label: "Stock",
+    type: "text",
+    placeholder: "in stock",
+  },
+];
+  
+
 
 export const userInputs = [
     {
@@ -41,45 +119,6 @@ export const userInputs = [
       label: "Country",
       type: "text",
       placeholder: "USA",
-    },
-  ];
-  
-  export const productInputs = [
-    {
-      id: "title",
-      label: "Title",
-      type: "text",
-      placeholder: "Apple Macbook Pro",
-    },
-    {
-      id: "description",
-      label: "Description",
-      type: "text",
-      placeholder: "Description",
-    },
-    {
-      id: "category",
-      label: "Category",
-      type: "text",
-      placeholder: "Computers",
-    },
-    {
-      id: "price",
-      label: "Price",
-      type: "text",
-      placeholder: "100",
-    },
-    {
-      id: "quantity",
-      label: "Quantity",
-      type: "text",
-      placeholder: "100",
-    },
-    {
-      id: "stock",
-      label: "Stock",
-      type: "text",
-      placeholder: "in stock",
     },
   ];
   

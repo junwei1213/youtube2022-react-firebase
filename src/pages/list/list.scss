@@ -74,6 +74,14 @@
       border: 1px dotted rgba(0, 0, 139, 0.596);
       cursor: pointer;
     }
+
+    .editButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: orangered;
+      border: 1px dotted rgb(255, 69, 0);
+      cursor: pointer;
+    }
     
     .deleteButton {
       padding: 2px 5px;

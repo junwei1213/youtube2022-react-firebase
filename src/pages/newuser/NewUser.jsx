@@ -1,4 +1,4 @@
-import "./new.scss";
+import "./newuser.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
@@ -75,13 +75,13 @@ const New = ({ inputs, title }) => {
     e.preventDefault();
     try {
       // Add a new document with a generated id
-const newProductRef = doc(collection(db, "products"));
+const newUserRef = doc(collection(db, "users"));
 
 // later...
-await setDoc(newProductRef, data )
+await setDoc(newUserRef, data )
       navigate(-1)
 
-      const updateTimestamp = await updateDoc(newProductRef, {
+      const updateTimestamp = await updateDoc(newUserRef, {
     timeStamp: serverTimestamp()
 });
     } catch (err) {

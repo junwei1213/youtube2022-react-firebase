@@ -62,6 +62,9 @@ const [data, setData] = useState([]);
             <Link to={`/products/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton" >View</div>
             </Link>
+            <Link to={`/editproduct/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <div className="editButton" >Edit</div>
+            </Link>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}

@@ -3,11 +3,14 @@ import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
+import NewUser from "./pages/newuser/NewUser";
 import Product from "./pages/Product/Product";
+import EditProduct from "./pages/editProduct/EditProduct";
 import ProductInfo from "./pages/productinfo/Productinfo";
+import Profile from "./pages/Profile/Profile";
 import Rating from "./pages/rating/Rating";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { productInputs, userInputs, productOutputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -37,6 +40,7 @@ function App() {
               }
             />
             <Route path="rating" element={<Rating />}/>
+            <Route path="profile" element={<Profile />}/>
             <Route path="users">
               <Route
                 index
@@ -55,10 +59,10 @@ function App() {
                 }
               />
               <Route
-                path="new"
+                path="newuser"
                 element={
                   <RequireAuth>
-                    <New inputs={userInputs} title="Add New User" />
+                    <NewUser inputs={userInputs} title="Add New User" />
                   </RequireAuth>
                 }
               />
@@ -85,6 +89,24 @@ function App() {
                 element={
                   <RequireAuth>
                     <New inputs={productInputs} title="Add New Product" />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="editproduct">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <EditProduct />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path=":productId"
+                element={
+                  <RequireAuth>
+                    <EditProduct inputs={productOutputs} title="Edit Product"/>
                   </RequireAuth>
                 }
               />
